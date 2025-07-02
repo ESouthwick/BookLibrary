@@ -352,14 +352,14 @@ const StatsView: React.FC = () => {
             onClick={() => setPageMode('stats')}
             title="Statistics View"
           >
-            📊 Statistics
+            Statistics
           </button>
           <button 
             className={`toggle-btn ${pageMode === 'ratings' ? 'active' : ''}`}
             onClick={() => setPageMode('ratings')}
             title="Ratings View"
           >
-            ⭐ Ratings
+            Ratings
           </button>
         </div>
       </div>
@@ -374,14 +374,14 @@ const StatsView: React.FC = () => {
                 onClick={() => setViewMode('bar')}
                 title="Bar Chart View"
               >
-                📊 Bar Chart
+                Bar Chart
               </button>
               <button 
                 className={`toggle-btn ${viewMode === 'pie' ? 'active' : ''}`}
                 onClick={() => setViewMode('pie')}
                 title="Pie Chart View"
               >
-                🥧 Pie Chart
+                Pie Chart
               </button>
             </div>
           </div>

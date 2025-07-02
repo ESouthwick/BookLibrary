@@ -117,8 +117,6 @@ const BookList: React.FC = () => {
     }
   };
 
-
-
   if (loading) return (
     <div className="container">
       <div className="loading">Loading books...</div>
@@ -149,14 +147,14 @@ const BookList: React.FC = () => {
             onClick={() => setViewMode('table')}
             title="Table View"
           >
-            📊 Table
+            Table
           </button>
           <button 
             className={`toggle-btn ${viewMode === 'cards' ? 'active' : ''}`}
             onClick={() => setViewMode('cards')}
             title="Card View"
           >
-            🃏 Cards
+            Cards
           </button>
         </div>
       </div>
