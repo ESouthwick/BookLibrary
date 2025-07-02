@@ -1,7 +1,7 @@
 // frontend/src/components/StatsView.tsx
 import React, { useEffect, useState } from 'react';
 import { getBookStats } from '../api/booksApi';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,14 +10,16 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 const StatsView: React.FC = () => {
   const [stats, setStats] = useState<{ [genre: string]: number }>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'bar' | 'pie'>('bar');
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -53,12 +55,34 @@ const StatsView: React.FC = () => {
     </div>
   );
 
-  const chartData = {
-    labels: Object.keys(stats),
+  // Generate colors for pie chart
+  const generateColors = (count: number) => {
+    const colors = [
+      'rgba(102, 126, 234, 0.8)',   // Blue
+      'rgba(39, 174, 96, 0.8)',     // Green
+      'rgba(155, 89, 182, 0.8)',    // Purple
+      'rgba(231, 76, 60, 0.8)',     // Red
+      'rgba(243, 156, 18, 0.8)',    // Orange
+      'rgba(52, 152, 219, 0.8)',    // Light Blue
+      'rgba(46, 204, 113, 0.8)',    // Light Green
+      'rgba(142, 68, 173, 0.8)',    // Dark Purple
+      'rgba(230, 126, 34, 0.8)',    // Dark Orange
+      'rgba(26, 188, 156, 0.8)',    // Teal
+    ];
+    
+    return Array.from({ length: count }, (_, i) => colors[i % colors.length]);
+  };
+
+  const labels = Object.keys(stats);
+  const data = Object.values(stats);
+  const colors = generateColors(labels.length);
+
+  const barChartData = {
+    labels,
     datasets: [
       {
         label: 'Number of Books',
-        data: Object.values(stats),
+        data,
         backgroundColor: 'rgba(102, 126, 234, 0.6)',
         borderColor: 'rgba(102, 126, 234, 1)',
         borderWidth: 2,
@@ -68,7 +92,20 @@ const StatsView: React.FC = () => {
     ],
   };
 
-  const chartOptions = {
+  const pieChartData = {
+    labels,
+    datasets: [
+      {
+        data,
+        backgroundColor: colors,
+        borderColor: colors.map(color => color.replace('0.8', '1')),
+        borderWidth: 2,
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  const barChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -85,12 +122,12 @@ const StatsView: React.FC = () => {
       title: {
         display: true,
         text: 'Number of Books per Genre',
-          color: '#667eea',
-          font: {
-            size: 18,
-            weight: 'bold' as const,
-          },
+        color: '#667eea',
+        font: {
+          size: 18,
+          weight: 'bold' as const,
         },
+      },
     },
     scales: {
       y: {
@@ -119,16 +156,77 @@ const StatsView: React.FC = () => {
     },
   };
 
+  const pieChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right' as const,
+        labels: {
+          color: '#333',
+          font: {
+            size: 12,
+            weight: 'bold' as const,
+          },
+          padding: 20,
+        },
+      },
+      title: {
+        display: true,
+        text: 'Books Distribution by Genre',
+        color: '#667eea',
+        font: {
+          size: 18,
+          weight: 'bold' as const,
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (context: any) => {
+            const label = context.label || '';
+            const value = context.parsed;
+            const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
+            const percentage = ((value / total) * 100).toFixed(1);
+            return `${label}: ${value} books (${percentage}%)`;
+          },
+        },
+      },
+    },
+  };
+
   return (
     <div className="container">
-      <h2>Book Statistics</h2>
+      <div className="stats-header">
+        <h2>Book Statistics</h2>
+        <div className="chart-toggle">
+          <button 
+            className={`toggle-btn ${viewMode === 'bar' ? 'active' : ''}`}
+            onClick={() => setViewMode('bar')}
+            title="Bar Chart View"
+          >
+            📊 Bar Chart
+          </button>
+          <button 
+            className={`toggle-btn ${viewMode === 'pie' ? 'active' : ''}`}
+            onClick={() => setViewMode('pie')}
+            title="Pie Chart View"
+          >
+            🥧 Pie Chart
+          </button>
+        </div>
+      </div>
+      
       <div style={{ 
-        maxWidth: '800px', 
+        maxWidth: '900px', 
         margin: '0 auto',
         height: '400px',
         padding: '1rem'
       }}>
-        <Bar data={chartData} options={chartOptions} />
+        {viewMode === 'bar' ? (
+          <Bar data={barChartData} options={barChartOptions} />
+        ) : (
+          <Pie data={pieChartData} options={pieChartOptions} />
+        )}
       </div>
       
       {/* Summary Cards */}

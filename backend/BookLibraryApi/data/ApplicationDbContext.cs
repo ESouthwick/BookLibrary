@@ -1,4 +1,3 @@
-// backend/BookLibraryApi/Data/ApplicationDbContext.cs
 using BookLibraryApi.Models;
 using Microsoft.EntityFrameworkCore;
 
