@@ -63,25 +63,25 @@ function App() {
               ✕
             </button>
           </div>
-          <nav>
-            <ul>
-              <li>
+        <nav>
+          <ul>
+            <li>
                 <Link to="/" onClick={closeMenu}>
                   📖 Book List
                 </Link>
-              </li>
-              <li>
+            </li>
+            <li>
                 <Link to="/add" onClick={closeMenu}>
                   ➕ Add Book
                 </Link>
-              </li>
-              <li>
+            </li>
+            <li>
                 <Link to="/stats" onClick={closeMenu}>
                   📊 Statistics
                 </Link>
-              </li>
-            </ul>
-          </nav>
+            </li>
+          </ul>
+        </nav>
         </div>
 
         {/* Main Content */}

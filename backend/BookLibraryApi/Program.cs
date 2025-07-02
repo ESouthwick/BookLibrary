@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
-        policyBuilder => policyBuilder.WithOrigins("http://localhost:3000") // Assuming React runs on 3000
+        policyBuilder => policyBuilder.WithOrigins("http://localhost:5173", "http://localhost:3000") // Vite default port and React default port
                                   .AllowAnyMethod()
                                   .AllowAnyHeader());
 });

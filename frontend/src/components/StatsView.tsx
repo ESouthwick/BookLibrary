@@ -82,9 +82,9 @@ const StatsView: React.FC = () => {
           },
         },
       },
-              title: {
-          display: true,
-          text: 'Number of Books per Genre',
+      title: {
+        display: true,
+        text: 'Number of Books per Genre',
           color: '#667eea',
           font: {
             size: 18,

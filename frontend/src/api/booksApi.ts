@@ -1,7 +1,7 @@
 // frontend/src/api/booksApi.ts
 import axios from 'axios';
 
-const API_BASE_URL = 'https://localhost:7025/api'; // Or your backend's HTTPS URL
+const API_BASE_URL = 'http://localhost:5086/api'; // Use HTTP since backend is running on HTTP
 
 export interface Book {
   id: string;

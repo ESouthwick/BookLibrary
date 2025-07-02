@@ -393,8 +393,8 @@ a:hover {
   @media (max-width: 600px) {
     table, thead, tbody, th, td, tr {
       display: block;
-    }
-    
+}
+
     thead tr {
       position: absolute;
       top: -9999px;
@@ -430,8 +430,8 @@ a:hover {
   .side-menu {
     width: 100%;
     left: -100%;
-  }
-  
+}
+
   form {
     padding: 0 1rem;
   }
