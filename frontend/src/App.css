@@ -336,6 +336,25 @@ table .star-rating {
   justify-content: flex-end;
 }
 
+/* Ratings page specific styles */
+.ratings-table .star-rating {
+  justify-content: center;
+}
+
+.ratings-table td {
+  vertical-align: middle;
+}
+
+.ratings-table th {
+  text-align: center;
+}
+
+.ratings-table th:first-child,
+.ratings-table td:first-child {
+  text-align: center;
+  width: 120px;
+}
+
 /* Action Buttons */
 .action-buttons {
   display: flex;
@@ -898,11 +917,39 @@ a:hover {
   
   .stats-header {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+  }
+  
+  .stats-header h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    order: 1;
+  }
+  
+  .page-toggle {
+    position: static;
+    transform: none;
+    justify-content: center;
+    order: 2;
+  }
+  
+  .chart-toggle-container {
+    justify-content: center;
   }
   
   .chart-toggle {
     justify-content: center;
+  }
+  
+  /* Responsive grid for stats cards */
+  .stats-cards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  @media (max-width: 600px) {
+    .stats-cards-grid {
+      grid-template-columns: 1fr !important;
+    }
   }
   
   .validation-error {
@@ -919,6 +966,35 @@ a:hover {
   margin-bottom: 2rem;
   flex-wrap: wrap;
   gap: 1rem;
+  position: relative;
+}
+
+.stats-header h2 {
+  margin: 0;
+  order: 1;
+  z-index: 1;
+}
+
+.page-toggle {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  order: 2;
+  z-index: 2;
+}
+
+
+
+.chart-toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .chart-toggle {
@@ -928,6 +1004,7 @@ a:hover {
   padding: 0.5rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 1rem;
 }
 
 /* Overlay for side menu */

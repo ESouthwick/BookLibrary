@@ -46,6 +46,7 @@ function App() {
             <NavLink to="/stats" className={({ isActive }) => isActive ? 'active' : ''}>
               Stats
             </NavLink>
+
           </nav>
         </header>
 
@@ -80,6 +81,7 @@ function App() {
                   📊 Statistics
                 </Link>
             </li>
+
           </ul>
         </nav>
         </div>
@@ -91,6 +93,7 @@ function App() {
             <Route path="/add" element={<BookForm />} />
             <Route path="/edit/:id" element={<BookForm />} />
             <Route path="/stats" element={<StatsView />} />
+
           </Routes>
         </main>
       </div>
