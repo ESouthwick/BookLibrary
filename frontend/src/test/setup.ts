@@ -26,5 +26,5 @@ vi.mock('react-router-dom', () => ({
   useNavigate: () => vi.fn(),
   useParams: () => ({}),
   Link: ({ children, to }: any) => `Link to ${to}: ${children}`,
-  NavLink: ({ children, to, className }: any) => `NavLink to ${to}: ${children}`,
+  NavLink: ({ children, to }: any) => `NavLink to ${to}: ${children}`,
 })) 

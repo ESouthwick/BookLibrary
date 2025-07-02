@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { useNavigate, useParams } from 'react-router-dom'
 import BookForm from '../BookForm'
 import * as booksApi from '../../api/booksApi'
 
@@ -15,7 +14,7 @@ vi.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
   useParams: () => mockUseParams(),
   Link: ({ children, to }: any) => `Link to ${to}: ${children}`,
-  NavLink: ({ children, to, className }: any) => `NavLink to ${to}: ${children}`,
+  NavLink: ({ children, to }: any) => `NavLink to ${to}: ${children}`,
 }))
 
 describe('BookForm', () => {

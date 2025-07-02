@@ -23,7 +23,7 @@ const StatsView: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'bar' | 'pie'>('bar');
-  const [ratingsViewMode, setRatingsViewMode] = useState<'bar' | 'pie'>('pie');
+  const [ratingsViewMode, setRatingsViewMode] = useState<'bar' | 'pie'>('bar');
   const [pageMode, setPageMode] = useState<'stats' | 'ratings'>('stats');
 
   useEffect(() => {
@@ -515,14 +515,14 @@ const StatsView: React.FC = () => {
                 onClick={() => setRatingsViewMode('bar')}
                 title="Bar Chart View"
               >
-                📊 Bar Chart
+                Bar Chart
               </button>
               <button 
                 className={`toggle-btn ${ratingsViewMode === 'pie' ? 'active' : ''}`}
                 onClick={() => setRatingsViewMode('pie')}
                 title="Pie Chart View"
               >
-                🥧 Pie Chart
+                Pie Chart
               </button>
             </div>
           </div>

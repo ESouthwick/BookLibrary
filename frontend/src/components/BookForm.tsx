@@ -182,7 +182,7 @@ const BookForm: React.FC = () => {
     setLoading(true);
 
     // Mark all fields as touched and validate in the same tick
-    setTouched(prev => {
+    setTouched(() => {
       const allTouched = {
         title: true,
         author: true,

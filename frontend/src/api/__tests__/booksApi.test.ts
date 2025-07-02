@@ -5,7 +5,7 @@ import type { Book } from '../booksApi'
 
 // Mock axios
 vi.mock('axios')
-const mockedAxios = vi.mocked(axios)
+const mockedAxios = vi.mocked(axios) as any
 
 describe('booksApi', () => {
   const mockBook: Book = {
