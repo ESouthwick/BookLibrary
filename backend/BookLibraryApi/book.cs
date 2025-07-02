@@ -13,15 +13,15 @@ namespace BookLibraryApi.Models
 
         [Required]
         [StringLength(250)]
-        public string Title { get; set; } // string [cite: 11]
+        public string Title { get; set; } = string.Empty; // string [cite: 11]
 
         [Required]
         [StringLength(150)]
-        public string Author { get; set; } // string [cite: 12]
+        public string Author { get; set; } = string.Empty; // string [cite: 12]
 
         [Required]
         [StringLength(100)]
-        public string Genre { get; set; } // string [cite: 13]
+        public string Genre { get; set; } = string.Empty; // string [cite: 13]
 
         [Required]
         public DateTime PublishedDate { get; set; } // DateTime [cite: 14]

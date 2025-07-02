@@ -181,16 +181,23 @@ const BookForm: React.FC = () => {
     setError(null); // Clear previous errors
     setLoading(true);
 
-    // Mark all fields as touched and validate
-    const allTouched = {
-      title: true,
-      author: true,
-      genre: true,
-      publishedDate: true,
-      rating: true,
-    };
-    setTouched(allTouched);
+    // Mark all fields as touched and validate in the same tick
+    setTouched(prev => {
+      const allTouched = {
+        title: true,
+        author: true,
+        genre: true,
+        publishedDate: true,
+        rating: true,
+      };
+      setValidationErrors(validateAll());
+      return allTouched;
+    });
 
+    // Force a re-render to show validation errors
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    // Set validation errors again after touched state is updated
     const errors = validateAll();
     setValidationErrors(errors);
 
@@ -245,7 +252,7 @@ const BookForm: React.FC = () => {
             placeholder="Enter book title"
           />
           {touched.title && validationErrors.title && (
-            <div className="validation-error">{validationErrors.title}</div>
+            <div className="validation-error" data-testid="title-error">{validationErrors.title}</div>
           )}
         </div>
         <div className="form-group">
@@ -261,7 +268,7 @@ const BookForm: React.FC = () => {
             placeholder="Enter author name"
           />
           {touched.author && validationErrors.author && (
-            <div className="validation-error">{validationErrors.author}</div>
+            <div className="validation-error" data-testid="author-error">{validationErrors.author}</div>
           )}
         </div>
         <div className="form-group">
@@ -310,7 +317,7 @@ const BookForm: React.FC = () => {
             <option value="Other">Other</option>
           </select>
           {touched.genre && validationErrors.genre && (
-            <div className="validation-error">{validationErrors.genre}</div>
+            <div className="validation-error" data-testid="genre-error">{validationErrors.genre}</div>
           )}
         </div>
         <div className="form-group">
@@ -325,7 +332,7 @@ const BookForm: React.FC = () => {
             className={touched.publishedDate && validationErrors.publishedDate ? 'input-error' : ''}
           />
           {touched.publishedDate && validationErrors.publishedDate && (
-            <div className="validation-error">{validationErrors.publishedDate}</div>
+            <div className="validation-error" data-testid="publishedDate-error">{validationErrors.publishedDate}</div>
           )}
         </div>
         <div className="form-group">

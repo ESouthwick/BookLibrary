@@ -45,7 +45,7 @@ const BookList: React.FC = () => {
     let filtered = books.filter(book => {
       const titleMatch = book.title.toLowerCase().includes(filters.title.toLowerCase());
       const authorMatch = book.author.toLowerCase().includes(filters.author.toLowerCase());
-      const genreMatch = book.genre.toLowerCase().includes(filters.genre.toLowerCase());
+      const genreMatch = filters.genre === '' || book.genre === filters.genre;
       const ratingMatch = filters.rating === '' || book.rating.toString() === filters.rating;
       
       return titleMatch && authorMatch && genreMatch && ratingMatch;
@@ -133,7 +133,7 @@ const BookList: React.FC = () => {
     <div className="container">
       <h2>Book List</h2>
       <p>No books found. Add some!</p>
-      <Link to="/add" className="btn btn-primary">Add Your First Book</Link>
+      <Link to="/add" className="btn btn-primary" data-testid="add-first-book-link">Add Your First Book</Link>
     </div>
   );
 
@@ -170,6 +170,7 @@ const BookList: React.FC = () => {
               onChange={(e) => handleFilterChange('title', e.target.value)}
               placeholder="Filter by title..."
               className="filter-input"
+              data-testid="title-filter"
             />
           </div>
           <div className="filter-group">
@@ -180,6 +181,7 @@ const BookList: React.FC = () => {
               onChange={(e) => handleFilterChange('author', e.target.value)}
               placeholder="Filter by author..."
               className="filter-input"
+              data-testid="author-filter"
             />
           </div>
           <div className="filter-group">
@@ -188,6 +190,7 @@ const BookList: React.FC = () => {
               value={filters.genre}
               onChange={(e) => handleFilterChange('genre', e.target.value)}
               className="filter-input"
+              data-testid="genre-filter"
             >
               <option value="">All Genres</option>
               <option value="Fiction">Fiction</option>
@@ -231,6 +234,7 @@ const BookList: React.FC = () => {
               value={filters.rating}
               onChange={(e) => handleFilterChange('rating', e.target.value)}
               className="filter-input"
+              data-testid="rating-filter"
             >
               <option value="">All Ratings</option>
               <option value="1">★☆☆☆☆ (1 Star)</option>
@@ -240,7 +244,7 @@ const BookList: React.FC = () => {
               <option value="5">★★★★★ (5 Stars)</option>
             </select>
           </div>
-          <button onClick={clearFilters} className="btn btn-secondary">
+          <button onClick={clearFilters} className="btn btn-secondary" data-testid="clear-filters-btn">
             🗑️ Clear Filters
           </button>
         </div>
@@ -329,6 +333,7 @@ const BookList: React.FC = () => {
                         to={`/edit/${book.id}`} 
                         className="action-btn edit-btn"
                         title="Edit Book"
+                        data-testid={`edit-book-${book.id}`}
                       >
                         ✏️
                       </Link>
@@ -336,6 +341,7 @@ const BookList: React.FC = () => {
                         onClick={() => handleDelete(book.id)} 
                         className="action-btn delete-btn"
                         title="Delete Book"
+                        data-testid={`delete-book-${book.id}`}
                       >
                         🗑️
                       </button>
@@ -375,6 +381,7 @@ const BookList: React.FC = () => {
                     to={`/edit/${book.id}`} 
                     className="btn btn-primary"
                     title="Edit Book"
+                    data-testid={`edit-book-${book.id}`}
                   >
                     ✏️ Edit
                   </Link>
@@ -382,6 +389,7 @@ const BookList: React.FC = () => {
                     onClick={() => handleDelete(book.id)} 
                     className="btn btn-danger"
                     title="Delete Book"
+                    data-testid={`delete-book-${book.id}`}
                   >
                     🗑️ Delete
                   </button>
