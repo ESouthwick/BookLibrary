@@ -274,7 +274,7 @@ const StatsView: React.FC = () => {
           border: '2px solid rgba(155, 89, 182, 0.2)'
         }}>
           <h3 style={{ color: '#9b59b6', marginBottom: '0.5rem' }}>
-            Most Popular
+            Biggest Selection
           </h3>
           <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#333' }}>
             {Object.keys(stats).reduce((a, b) => stats[a] > stats[b] ? a : b, '')}

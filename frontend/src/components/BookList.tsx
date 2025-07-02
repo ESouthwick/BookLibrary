@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getBooks, deleteBook } from '../api/booksApi';
 import type { Book } from '../api/booksApi';
 import { Link } from 'react-router-dom';
+import StarRating from './StarRating';
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -18,6 +19,10 @@ const BookList: React.FC = () => {
     genre: '',
     rating: ''
   });
+
+  // Sorting states
+  const [sortField, setSortField] = useState<keyof Book | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -35,9 +40,9 @@ const BookList: React.FC = () => {
     fetchBooks();
   }, []);
 
-  // Apply filters whenever filters change
+  // Apply filters and sorting whenever filters or sorting change
   useEffect(() => {
-    const filtered = books.filter(book => {
+    let filtered = books.filter(book => {
       const titleMatch = book.title.toLowerCase().includes(filters.title.toLowerCase());
       const authorMatch = book.author.toLowerCase().includes(filters.author.toLowerCase());
       const genreMatch = book.genre.toLowerCase().includes(filters.genre.toLowerCase());
@@ -45,8 +50,33 @@ const BookList: React.FC = () => {
       
       return titleMatch && authorMatch && genreMatch && ratingMatch;
     });
+
+    // Apply sorting
+    if (sortField) {
+      filtered.sort((a, b) => {
+        let aValue = a[sortField];
+        let bValue = b[sortField];
+
+        // Handle date sorting
+        if (sortField === 'publishedDate') {
+          aValue = new Date(aValue as string).getTime();
+          bValue = new Date(bValue as string).getTime();
+        }
+
+        // Handle string sorting (case-insensitive)
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          aValue = aValue.toLowerCase();
+          bValue = bValue.toLowerCase();
+        }
+
+        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
     setFilteredBooks(filtered);
-  }, [books, filters]);
+  }, [books, filters, sortField, sortDirection]);
 
   const handleFilterChange = (field: keyof typeof filters, value: string) => {
     setFilters(prev => ({
@@ -64,6 +94,17 @@ const BookList: React.FC = () => {
     });
   };
 
+  const handleSort = (field: keyof Book) => {
+    if (sortField === field) {
+      // Toggle direction if same field
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      // Set new field with ascending direction
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this book?')) {
       try {
@@ -76,12 +117,7 @@ const BookList: React.FC = () => {
     }
   };
 
-  // Function to render stars based on rating
-  const renderStars = (rating: number) => {
-    const filledStars = '⭐'.repeat(rating);
-    const emptyStars = '☆'.repeat(5 - rating);
-    return filledStars + emptyStars;
-  };
+
 
   if (loading) return (
     <div className="container">
@@ -150,13 +186,46 @@ const BookList: React.FC = () => {
           </div>
           <div className="filter-group">
             <label>📚 Genre:</label>
-            <input
-              type="text"
+            <select
               value={filters.genre}
               onChange={(e) => handleFilterChange('genre', e.target.value)}
-              placeholder="Filter by genre..."
               className="filter-input"
-            />
+            >
+              <option value="">All Genres</option>
+              <option value="Fiction">Fiction</option>
+              <option value="Non-Fiction">Non-Fiction</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Thriller">Thriller</option>
+              <option value="Romance">Romance</option>
+              <option value="Science Fiction">Science Fiction</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Horror">Horror</option>
+              <option value="Biography">Biography</option>
+              <option value="Autobiography">Autobiography</option>
+              <option value="History">History</option>
+              <option value="Self-Help">Self-Help</option>
+              <option value="Business">Business</option>
+              <option value="Technology">Technology</option>
+              <option value="Philosophy">Philosophy</option>
+              <option value="Poetry">Poetry</option>
+              <option value="Drama">Drama</option>
+              <option value="Comedy">Comedy</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Young Adult">Young Adult</option>
+              <option value="Children">Children</option>
+              <option value="Cooking">Cooking</option>
+              <option value="Travel">Travel</option>
+              <option value="Art">Art</option>
+              <option value="Music">Music</option>
+              <option value="Sports">Sports</option>
+              <option value="Education">Education</option>
+              <option value="Religion">Religion</option>
+              <option value="Politics">Politics</option>
+              <option value="Economics">Economics</option>
+              <option value="Psychology">Psychology</option>
+              <option value="Sociology">Sociology</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
           <div className="filter-group">
             <label>⭐ Rating:</label>
@@ -166,11 +235,11 @@ const BookList: React.FC = () => {
               className="filter-input"
             >
               <option value="">All Ratings</option>
-              <option value="1">⭐☆☆☆☆ (1 Star)</option>
-              <option value="2">⭐⭐☆☆☆ (2 Stars)</option>
-              <option value="3">⭐⭐⭐☆☆ (3 Stars)</option>
-              <option value="4">⭐⭐⭐⭐☆ (4 Stars)</option>
-              <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+              <option value="1">★☆☆☆☆ (1 Star)</option>
+              <option value="2">★★☆☆☆ (2 Stars)</option>
+              <option value="3">★★★☆☆ (3 Stars)</option>
+              <option value="4">★★★★☆ (4 Stars)</option>
+              <option value="5">★★★★★ (5 Stars)</option>
             </select>
           </div>
           <button onClick={clearFilters} className="btn btn-secondary">
@@ -188,11 +257,56 @@ const BookList: React.FC = () => {
           <table>
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Published Date</th>
-                <th>Rating</th>
+                <th 
+                  className="sortable-header"
+                  onClick={() => handleSort('title')}
+                  title="Click to sort by title"
+                >
+                  Title
+                  <span className="sort-icon">
+                    {sortField === 'title' ? (sortDirection === 'asc' ? ' ↑' : ' ↓') : ' ↕'}
+                  </span>
+                </th>
+                <th 
+                  className="sortable-header"
+                  onClick={() => handleSort('author')}
+                  title="Click to sort by author"
+                >
+                  Author
+                  <span className="sort-icon">
+                    {sortField === 'author' ? (sortDirection === 'asc' ? ' ↑' : ' ↓') : ' ↕'}
+                  </span>
+                </th>
+                <th 
+                  className="sortable-header"
+                  onClick={() => handleSort('genre')}
+                  title="Click to sort by genre"
+                >
+                  Genre
+                  <span className="sort-icon">
+                    {sortField === 'genre' ? (sortDirection === 'asc' ? ' ↑' : ' ↓') : ' ↕'}
+                  </span>
+                </th>
+                <th 
+                  className="sortable-header"
+                  onClick={() => handleSort('publishedDate')}
+                  title="Click to sort by published date"
+                >
+                  Published Date
+                  <span className="sort-icon">
+                    {sortField === 'publishedDate' ? (sortDirection === 'asc' ? ' ↑' : ' ↓') : ' ↕'}
+                  </span>
+                </th>
+                <th 
+                  className="sortable-header"
+                  onClick={() => handleSort('rating')}
+                  title="Click to sort by rating"
+                >
+                  Rating
+                  <span className="sort-icon">
+                    {sortField === 'rating' ? (sortDirection === 'asc' ? ' ↑' : ' ↓') : ' ↕'}
+                  </span>
+                </th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -204,9 +318,12 @@ const BookList: React.FC = () => {
                   <td data-label="Genre">{book.genre}</td>
                   <td data-label="Published Date">{new Date(book.publishedDate).toLocaleDateString()}</td>
                   <td data-label="Rating">
-                    <span className="rating-stars" title={`${book.rating} out of 5 stars`}>
-                      {renderStars(book.rating)}
-                    </span>
+                    <StarRating
+                      rating={book.rating}
+                      onRatingChange={() => {}} // Read-only in table view
+                      disabled={true}
+                      showText={false}
+                    />
                   </td>
                   <td data-label="Actions">
                     <div className="action-buttons">
@@ -241,9 +358,12 @@ const BookList: React.FC = () => {
               <div className="book-card-header">
                 <h3 className="book-title">{book.title}</h3>
                 <div className="book-rating">
-                  <span className="rating-stars" title={`${book.rating} out of 5 stars`}>
-                    {renderStars(book.rating)}
-                  </span>
+                  <StarRating
+                    rating={book.rating}
+                    onRatingChange={() => {}} // Read-only in card view
+                    disabled={true}
+                    showText={false}
+                  />
                 </div>
               </div>
               <div className="book-card-content">
