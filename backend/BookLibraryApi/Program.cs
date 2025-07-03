@@ -30,6 +30,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Seed the database
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    context.Database.EnsureCreated();
+    DbInitializer.SeedData(context);
+}
+
 // Configure the HTTP request pipeline (equivalent to 'Configure' method).
 if (app.Environment.IsDevelopment())
 {

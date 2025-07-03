@@ -110,6 +110,26 @@ namespace BookLibraryApi.Controllers
             return NoContent();
         }
 
+        [HttpPost("reseed")]
+        public async Task<IActionResult> ReseedDatabase()
+        {
+            try
+            {
+                // Clear all existing books
+                _context.Books.RemoveRange(_context.Books);
+                await _context.SaveChangesAsync();
+
+                // Seed with new books
+                DbInitializer.SeedData(_context);
+
+                return Ok(new { message = "Database reseeded successfully with 50 books" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Failed to reseed database", error = ex.Message });
+            }
+        }
+
         private bool BookExists(Guid id)
         {
             return _context.Books.Any(e => e.Id == id);

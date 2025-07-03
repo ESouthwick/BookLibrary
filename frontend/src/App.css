@@ -478,6 +478,18 @@ form select {
   color: #333;
 }
 
+/* Make date input calendar icon black */
+form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+form input[type="date"]::-webkit-inner-spin-button,
+form input[type="date"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 form select {
   cursor: pointer;
   appearance: none;
@@ -768,6 +780,9 @@ a:hover {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .book-card::before {
@@ -812,6 +827,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  flex-grow: 1;
 }
 
 .book-info {
@@ -989,8 +1005,6 @@ a:hover {
   z-index: 2;
 }
 
-
-
 .chart-toggle-container {
   display: flex;
   justify-content: flex-end;
@@ -1024,4 +1038,187 @@ a:hover {
 .overlay.active {
   opacity: 1;
   visibility: visible;
+}
+
+/* Add Book Section */
+.add-book-section {
+  margin-top: 2rem;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.add-book-section .btn {
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  min-width: 200px;
+}
+
+/* Stats Cards and Table Styles */
+.stats-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stats-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.stats-card h3 {
+  color: #667eea;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.stats-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stats-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.stats-item:last-child {
+  border-bottom: none;
+}
+
+.stats-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.stats-value {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.stats-table-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.stats-table th,
+.stats-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.stats-table th {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats-table tr:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.stats-table td {
+  font-size: 0.9rem;
+}
+
+.chart-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+  min-height: 400px;
+}
+
+.stats-section {
+  margin-bottom: 2rem;
+}
+
+.chart-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.chart-controls h3 {
+  color: #667eea;
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pie-chart-container {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0.5rem 0;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Results Summary */
+.results-summary {
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.results-summary p {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
 }

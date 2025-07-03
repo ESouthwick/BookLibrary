@@ -1,19 +1,17 @@
 # BookLibrary
 
-A full-stack book management application built with React frontend and .NET 9 Web API backend. The application allows users to manage their book collection with features like adding, editing, deleting books, viewing statistics, and filtering/searching capabilities.
+A full-stack book management application built with React frontend and .NET 9 Web API backend. The application allows users to manage their book collection with features like adding, editing, deleting books, viewing comprehensive statistics, and advanced filtering/searching capabilities.
 
 ## Features
 
-- **Book Management**: Add, edit, delete, and view books
-- **Rich Book Details**: Title, author, genre, publication date, and star ratings
+- **Book Management**: Add, edit, delete, and view books with comprehensive validation
 - **Advanced Filtering**: Filter by title, author, genre, and rating with exact matching
-- **Statistics Dashboard**: View book statistics with interactive charts (bar and pie charts)
-- **Responsive Design**: Works on desktop and mobile devices
-- **Real-time Validation**: Form validation with immediate feedback
+- **Comprehensive Statistics Dashboard**: View detailed book statistics with interactive charts (bar and pie charts), summary cards, and data tables
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Real-time Validation**: Comprehensive form validation with immediate feedback
 - **Star Rating System**: Interactive 5-star rating component with visual feedback
 - **Comprehensive Testing**: Full test coverage for both frontend and backend
 - **API Documentation**: Auto-generated Swagger/OpenAPI documentation
-- **Modern UI/UX**: Clean, intuitive interface with proper error handling
 
 ## Tech Stack
 
@@ -21,7 +19,7 @@ A full-stack book management application built with React frontend and .NET 9 We
 - **React 19** with TypeScript
 - **Vite** for fast development and building
 - **React Router** for navigation
-- **Axios** for API communication
+- **Axios** for API communication with interceptors
 - **Chart.js** with react-chartjs-2 for data visualization
 - **Vitest** with React Testing Library for testing
 - **CSS Modules** for component styling
@@ -34,36 +32,67 @@ A full-stack book management application built with React frontend and .NET 9 We
 
 ## Recent Updates & Improvements
 
-### Latest Enhancements (Latest Release)
+### Enhancements 
 
-#### 🎯 **Enhanced User Experience**
-- **Improved Filtering**: Genre filter now uses exact matching instead of partial matching
+#### **Enhanced Statistics Dashboard**
+- **Comprehensive Stats Cards**: 6 summary cards showing Total Books, Average Rating, Top Genre, Top Rating, Distinct Authors, and Newest Book
+- **Interactive Charts**: Toggle between Bar and Pie charts for both Genre and Rating statistics
+- **Data Tables**: Detailed tables showing genre distribution and rating breakdown with percentages
+- **Clean Pie Charts**: Removed grid lines and background for cleaner pie chart visualization
+- **Rating Integration**: Star ratings displayed inline with rating labels throughout the application
+- **Responsive Layout**: Stats cards and tables adapt to different screen sizes
+
+#### **Enhanced Form Validation & User Experience**
+- **Comprehensive Validation Rules**: 
+  - Title: Minimum 2 characters, maximum 100 characters
+  - Author: No numbers allowed, maximum 50 characters
+  - Published Date: Cannot be in the future, proper date format validation
+  - Genre: Required field validation
+  - Rating: Must be between 1-5 stars
+- **Real-time Validation**: Immediate feedback on field blur and form submission
+- **Clear Error Messages**: User-friendly validation messages with proper data-testid attributes
+- **Improved Filtering**: Genre filter uses exact matching instead of partial matching
 - **Better Error Handling**: Comprehensive error messages and loading states
-- **Enhanced Form Validation**: Real-time validation with clear feedback
 - **Responsive Layout**: Optimized for all screen sizes
 
-#### 🧪 **Comprehensive Testing**
+#### **Comprehensive Testing Suite**
 - **Backend Tests**: 13 xUnit tests covering all API endpoints and edge cases
-- **Frontend Tests**: 66 Vitest tests with React Testing Library
-- **Test Scripts**: Automated test runners for both platforms
+- **Frontend Tests**: 46 Vitest tests with React Testing Library covering all components
+- **Test Coverage**: 
+  - BookForm: 8 tests (form rendering, validation, submission, editing)
+  - BookList: 14 tests (filtering, sorting, pagination, CRUD operations)
+  - StatsView: 13 tests (chart rendering, data visualization, empty states)
+  - StarRating: 11 tests (interactive rating, visual feedback, accessibility)
+- **Stable Test Selectors**: All tests use data-testid attributes for reliable element selection
 - **Mock API**: Proper API mocking for isolated frontend testing
 
-#### 🛠️ **Development Experience**
+#### **Architecture Improvements**
+- **Service Layer**: Centralized business logic in BookService for validation, filtering, and data transformation
+- **Custom Hooks**: Reusable hooks for data fetching (useBooks), filtering (useBookFilters), and statistics (useBookStats)
+- **API Layer**: Centralized API communication with axios interceptors for logging and error handling
+- **Type Safety**: Comprehensive TypeScript interfaces and strict type checking
+- **Separation of Concerns**: Clear separation between presentation, business logic, and API layers
+
+#### **Development Experience**
 - **Concurrent App Runner**: Scripts to run both frontend and backend simultaneously
 - **Automatic Setup**: Scripts handle database migrations and dependency installation
 - **Cross-Platform Support**: PowerShell (Windows) and Bash (Linux/macOS) scripts
 - **API Documentation**: Live Swagger UI for API exploration and testing
-
-#### 🔧 **Technical Improvements**
 - **React 19 Compatibility**: Updated to latest React version with proper testing library support
+
+#### **Technical Improvements**
 - **TypeScript Strict Mode**: Enhanced type safety throughout the application
 - **Performance Optimizations**: Efficient re-renders and optimized API calls
 - **Code Quality**: ESLint configuration and consistent code formatting
+- **Error Boundaries**: Proper error handling and user feedback
+- **Accessibility**: ARIA labels and keyboard navigation support
 
-#### 📊 **Data Visualization**
-- **Interactive Charts**: Bar charts for genre distribution and publication years
-- **Statistics Dashboard**: Combined view with ratings and book statistics
+#### **Data Visualization**
+- **Interactive Charts**: Bar and pie charts for genre distribution and ratings
+- **Statistics Dashboard**: Comprehensive view with summary cards, tables, and charts
 - **Real-time Updates**: Charts update automatically when data changes
+- **Empty States**: Proper handling of empty data scenarios
+- **Clean Visualization**: Optimized chart options for different chart types
 
 ## Prerequisites
 
@@ -126,9 +155,7 @@ npm run build
 
 ## Troubleshooting
 
-### Common Issues
-
-#### npm install fails with React dependency conflicts
+#### If npm install fails with React dependency conflicts
 If you encounter errors like `ERESOLVE could not resolve` or conflicts between React versions:
 
 ```bash
@@ -136,17 +163,6 @@ If you encounter errors like `ERESOLVE could not resolve` or conflicts between R
 # If you still encounter issues, try:
 npm install --legacy-peer-deps
 ```
-
-#### Node.js version warnings
-If you see warnings about Node.js version requirements:
-- **Warning only**: The application will still work with Node.js 18+
-- **For optimal experience**: Consider upgrading to Node.js 20.19.0+ or 22.12.0+
-
-#### Security vulnerabilities in dev dependencies
-The project may show moderate security vulnerabilities in development dependencies (esbuild, vite, vitest). These are:
-- **Development-only**: Don't affect production builds
-- **Low risk**: Related to development server features
-- **Optional fix**: Can be addressed with `npm audit fix --force` (may cause breaking changes)
 
 ## Quick Start
 
@@ -158,9 +174,7 @@ git clone <repository-url>
 cd BookLibrary
 
 # 2. Run both applications (handles setup automatically)
-.\run-apps.ps1  # Windows
-# OR
-./run-apps.sh   # Linux/macOS
+`.\run-apps.ps1`  # Windows
 
 # 3. Access the applications
 # Frontend: http://localhost:5173
@@ -190,11 +204,11 @@ The scripts will automatically:
 ```
 
 **What these scripts do:**
-- ✅ Start both backend API and frontend development server
-- ✅ Run database migrations if needed
-- ✅ Install frontend dependencies if needed
-- ✅ Show clear URLs for accessing each application
-- ✅ Handle graceful shutdown with Ctrl+C
+- Start both backend API and frontend development server
+- Run database migrations if needed
+- Install frontend dependencies if needed
+- Show clear URLs for accessing each application
+- Handle graceful shutdown with Ctrl+C
 
 **Access URLs:**
 - **Frontend**: http://localhost:5173
@@ -214,12 +228,12 @@ dotnet run
 cd frontend
 npm run dev
 ```
+
 The frontend will be available at: `http://localhost:5173`
 
 ## API Documentation
 
 Once the backend is running, you can access the Swagger API documentation at:
-- `https://localhost:7226/swagger` (HTTPS)
 - `http://localhost:5086/swagger` (HTTP)
 
 ### API Endpoints
@@ -231,12 +245,13 @@ The backend provides the following REST API endpoints:
 - `POST /api/books` - Create a new book
 - `PUT /api/books/{id}` - Update an existing book
 - `DELETE /api/books/{id}` - Delete a book
+- `GET /api/books/stats` - Get book statistics
 
 ### Important Notes
 
-- **Root URL**: The root URL (`http://localhost:5086` or `https://localhost:7226`) will show "Page Can't Be Reached" - this is normal behavior for REST APIs
-- **API Access**: Use the specific endpoint URLs (e.g., `/api/books`) to interact with the API
-- **Swagger UI**: The best way to explore and test the API is through the Swagger interface
+- **Root URL**: The root URL (`http://localhost:5086`) will show "Page Can't Be Reached" - this is normal behavior for REST APIs
+- **API Access**: With the backend running use the specific endpoint URLs (`http://localhost:5086/api/books`) to interact with the API
+- **Swagger UI**: The best way to explore and test the API is through the Swagger interface With the backend running go here(`http://localhost:5086/swagger/`)
 
 ## Testing
 
@@ -255,8 +270,7 @@ npm test
 For detailed testing information, see [TESTING.md](./TESTING.md).
 
 **Note:** There are also test runner scripts available:
-- `./run-tests.ps1` (Windows)
-- `./run-apps.ps1` (Windows)
+- `.\run-tests.ps1` (Windows)
 
 ## Project Structure
 
@@ -273,8 +287,11 @@ BookLibrary/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/           # React components (BookList, BookForm, StarRating, StatsView)
-│   │   ├── api/                  # API service layer (booksApi)
-│   │   ├── __tests__/            # Frontend tests (66 tests)
+│   │   ├── api/                  # API service layer (booksApi with axios interceptors)
+│   │   ├── services/             # Business logic layer (BookService)
+│   │   ├── hooks/                # Custom hooks (useBooks, useBookFilters, useBookStats)
+│   │   ├── types/                # TypeScript interfaces and types
+│   │   ├── __tests__/            # Frontend tests (46 tests)
 │   │   └── assets/               # Static assets and images
 │   ├── public/                   # Public assets
 │   └── package.json              # Dependencies and scripts
@@ -285,115 +302,26 @@ BookLibrary/
 ├── README.md                     # This file
 └── TESTING.md                    # Comprehensive testing guide
 ```
-├── run-apps.sh                   # Bash script for running both apps concurrently
-├── run-tests.ps1                 # PowerShell script for running all tests
-├── run-tests.sh                  # Bash script for running all tests
-└── TESTING.md                    # Comprehensive testing guide
-```
 
-## Design Decisions and Trade-offs
+## Key Features in Detail
 
-### Architecture Decisions
+### Statistics Dashboard
+- **Summary Cards**: Quick overview of key metrics (Total Books, Average Rating, Top Genre, Top Rating, Distinct Authors, Newest Book)
+- **Interactive Charts**: Toggle between bar and pie charts for different data visualizations
+- **Detailed Tables**: Comprehensive breakdown of genre distribution and rating statistics
+- **Real-time Updates**: All statistics update automatically when books are added, edited, or deleted
 
-1. **Monorepo Structure**: 
-   - **Pros**: Easier to manage dependencies, consistent tooling, simplified CI/CD
-   - **Cons**: Larger repository size, potential for tight coupling
+### Book Management
+- **Comprehensive Validation**: Real-time form validation with clear error messages
+- **Flexible Views**: Switch between table and card views for different preferences
+- **Advanced Filtering**: Filter by multiple criteria with exact matching
+- **Sorting**: Sort by any column in table view
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 
-2. **SQLite Database**:
-   - **Pros**: Zero configuration, portable, perfect for development and small deployments
-   - **Cons**: Limited concurrent users, not suitable for high-scale production
-
-3. **React 19 with TypeScript**:
-   - **Pros**: Type safety, better developer experience, modern React features
-   - **Cons**: Learning curve for TypeScript, additional build complexity
-
-### Frontend Design Decisions
-
-1. **Component Architecture**:
-   - **Reusable Components**: StarRating, BookForm, BookList designed for reusability
-   - **Separation of Concerns**: API logic separated from UI components
-   - **State Management**: Local state with React hooks (no external state management needed for this scale)
-
-2. **Form Validation**:
-   - **Real-time Validation**: Immediate feedback on field blur and submit
-   - **Comprehensive Rules**: Length limits, character validation, date constraints
-   - **User Experience**: Clear error messages with data-testid for testing
-
-3. **Data Visualization**:
-   - **Chart.js Integration**: Professional charts with smooth animations
-   - **Multiple Chart Types**: Bar and pie charts for different data perspectives
-   - **Responsive Design**: Charts adapt to container size
-
-### Backend Design Decisions
-
-1. **API Design**:
-   - **RESTful Endpoints**: Standard HTTP methods for CRUD operations
-   - **Consistent Response Format**: Standardized error handling and success responses
-   - **Swagger Documentation**: Auto-generated API documentation
-
-2. **Database Design**:
-   - **Entity Framework Core**: ORM for type-safe database operations
-   - **Code-First Approach**: Database schema defined in C# models
-   - **Migrations**: Version-controlled database schema changes
-
-3. **Testing Strategy**:
-   - **In-Memory Database**: Fast, isolated tests without external dependencies
-   - **Comprehensive Coverage**: Tests for all endpoints, validation, and error scenarios
-   - **Async Testing**: Proper handling of asynchronous operations
-
-### Performance Considerations
-
-1. **Frontend Performance**:
-   - **Vite Build Tool**: Fast development server and optimized production builds
-   - **Lazy Loading**: Components loaded on demand
-   - **Efficient Re-renders**: React.memo and useMemo for expensive operations
-
-2. **Backend Performance**:
-   - **Async Operations**: Non-blocking API calls
-   - **Efficient Queries**: Optimized Entity Framework queries
-   - **Caching**: HTTP response caching where appropriate
-
-### Security Considerations
-
-1. **Input Validation**: 
-   - **Frontend**: Client-side validation for immediate feedback
-   - **Backend**: Server-side validation for security
-   - **Character Restrictions**: Prevent injection attacks
-
-2. **CORS Configuration**: Properly configured for development and production
-3. **HTTPS**: Configured for secure communication in production
-
-## Development Workflow
-
-1. **Feature Development**:
-   - Create feature branch from main
-   - Implement backend API endpoints first
-   - Add comprehensive tests
-   - Implement frontend components
-   - Test integration
-
-2. **Testing Strategy**:
-   - Unit tests for all components and API endpoints
-   - Integration tests for API workflows
-   - Manual testing for user experience
-
-3. **Code Quality**:
-   - ESLint for frontend code quality
-   - TypeScript for type safety
-   - Consistent code formatting
-
-## Deployment Considerations
-
-### Frontend Deployment
-- Build optimized production bundle: `npm run build`
-- Serve static files from any web server
-- Configure environment variables for API endpoints
-
-### Backend Deployment
-- Publish self-contained application: `dotnet publish -c Release`
-- Configure production database (PostgreSQL/MySQL recommended)
-- Set up reverse proxy (nginx/Apache)
-- Configure HTTPS certificates
+### User Experience
+- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
+- **Error Handling**: Comprehensive error messages and loading states
+- **Performance**: Optimized rendering and efficient API calls
 
 ## Contributing
 

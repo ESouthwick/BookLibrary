@@ -1,41 +1,67 @@
 // frontend/src/api/booksApi.ts
 import axios from 'axios';
+import type { Book, CreateBookRequest, UpdateBookRequest, GenreStats } from '../types';
 
-const API_BASE_URL = 'http://localhost:5086/api'; // Use HTTP since backend is running on HTTP
+const API_BASE_URL = 'http://localhost:5086/api';
 
-export interface Book {
-  id: string;
-  title: string;
-  author: string;
-  genre: string;
-  publishedDate: string; // ISO 8601 string
-  rating: number;
-}
+// Create axios instance with default config
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
+// Request interceptor for logging
+apiClient.interceptors.request.use(
+  (config) => {
+    console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+    return config;
+  },
+  (error) => {
+    console.error('API Request Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor for error handling
+apiClient.interceptors.response.use(
+  (response) => {
+    console.log(`API Response: ${response.status} ${response.config.url}`);
+    return response;
+  },
+  (error) => {
+    console.error('API Response Error:', error.response?.data || error.message);
+    return Promise.reject(error);
+  }
+);
+
+// Book CRUD operations
 export const getBooks = async (): Promise<Book[]> => {
-  const response = await axios.get<Book[]>(`${API_BASE_URL}/books`);
+  const response = await apiClient.get<Book[]>('/books');
   return response.data;
 };
 
 export const getBookById = async (id: string): Promise<Book> => {
-  const response = await axios.get<Book>(`${API_BASE_URL}/books/${id}`);
+  const response = await apiClient.get<Book>(`/books/${id}`);
   return response.data;
 };
 
-export const createBook = async (book: Omit<Book, 'id'>): Promise<Book> => {
-  const response = await axios.post<Book>(`${API_BASE_URL}/books`, book);
+export const createBook = async (book: CreateBookRequest): Promise<Book> => {
+  const response = await apiClient.post<Book>('/books', book);
   return response.data;
 };
 
-export const updateBook = async (id: string, book: Book): Promise<void> => {
-  await axios.put<void>(`${API_BASE_URL}/books/${id}`, book);
+export const updateBook = async (id: string, book: UpdateBookRequest): Promise<void> => {
+  await apiClient.put<void>(`/books/${id}`, book);
 };
 
 export const deleteBook = async (id: string): Promise<void> => {
-  await axios.delete<void>(`${API_BASE_URL}/books/${id}`);
+  await apiClient.delete<void>(`/books/${id}`);
 };
 
-export const getBookStats = async (): Promise<{ [genre: string]: number }> => {
-  const response = await axios.get<{ [genre: string]: number }>(`${API_BASE_URL}/books/stats`);
+// Statistics endpoint
+export const getBookStats = async (): Promise<GenreStats> => {
+  const response = await apiClient.get<GenreStats>('/books/stats');
   return response.data;
 };
