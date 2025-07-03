@@ -30,70 +30,6 @@ A full-stack book management application built with React frontend and .NET 9 We
 - **xUnit** for testing
 - **Swagger/OpenAPI** for API documentation
 
-## Recent Updates & Improvements
-
-### Enhancements 
-
-#### **Enhanced Statistics Dashboard**
-- **Comprehensive Stats Cards**: 6 summary cards showing Total Books, Average Rating, Top Genre, Top Rating, Distinct Authors, and Newest Book
-- **Interactive Charts**: Toggle between Bar and Pie charts for both Genre and Rating statistics
-- **Data Tables**: Detailed tables showing genre distribution and rating breakdown with percentages
-- **Clean Pie Charts**: Removed grid lines and background for cleaner pie chart visualization
-- **Rating Integration**: Star ratings displayed inline with rating labels throughout the application
-- **Responsive Layout**: Stats cards and tables adapt to different screen sizes
-
-#### **Enhanced Form Validation & User Experience**
-- **Comprehensive Validation Rules**: 
-  - Title: Minimum 2 characters, maximum 100 characters
-  - Author: No numbers allowed, maximum 50 characters
-  - Published Date: Cannot be in the future, proper date format validation
-  - Genre: Required field validation
-  - Rating: Must be between 1-5 stars
-- **Real-time Validation**: Immediate feedback on field blur and form submission
-- **Clear Error Messages**: User-friendly validation messages with proper data-testid attributes
-- **Improved Filtering**: Genre filter uses exact matching instead of partial matching
-- **Better Error Handling**: Comprehensive error messages and loading states
-- **Responsive Layout**: Optimized for all screen sizes
-
-#### **Comprehensive Testing Suite**
-- **Backend Tests**: 13 xUnit tests covering all API endpoints and edge cases
-- **Frontend Tests**: 46 Vitest tests with React Testing Library covering all components
-- **Test Coverage**: 
-  - BookForm: 8 tests (form rendering, validation, submission, editing)
-  - BookList: 14 tests (filtering, sorting, pagination, CRUD operations)
-  - StatsView: 13 tests (chart rendering, data visualization, empty states)
-  - StarRating: 11 tests (interactive rating, visual feedback, accessibility)
-- **Stable Test Selectors**: All tests use data-testid attributes for reliable element selection
-- **Mock API**: Proper API mocking for isolated frontend testing
-
-#### **Architecture Improvements**
-- **Service Layer**: Centralized business logic in BookService for validation, filtering, and data transformation
-- **Custom Hooks**: Reusable hooks for data fetching (useBooks), filtering (useBookFilters), and statistics (useBookStats)
-- **API Layer**: Centralized API communication with axios interceptors for logging and error handling
-- **Type Safety**: Comprehensive TypeScript interfaces and strict type checking
-- **Separation of Concerns**: Clear separation between presentation, business logic, and API layers
-
-#### **Development Experience**
-- **Concurrent App Runner**: Scripts to run both frontend and backend simultaneously
-- **Automatic Setup**: Scripts handle database migrations and dependency installation
-- **Cross-Platform Support**: PowerShell (Windows) and Bash (Linux/macOS) scripts
-- **API Documentation**: Live Swagger UI for API exploration and testing
-- **React 19 Compatibility**: Updated to latest React version with proper testing library support
-
-#### **Technical Improvements**
-- **TypeScript Strict Mode**: Enhanced type safety throughout the application
-- **Performance Optimizations**: Efficient re-renders and optimized API calls
-- **Code Quality**: ESLint configuration and consistent code formatting
-- **Error Boundaries**: Proper error handling and user feedback
-- **Accessibility**: ARIA labels and keyboard navigation support
-
-#### **Data Visualization**
-- **Interactive Charts**: Bar and pie charts for genre distribution and ratings
-- **Statistics Dashboard**: Comprehensive view with summary cards, tables, and charts
-- **Real-time Updates**: Charts update automatically when data changes
-- **Empty States**: Proper handling of empty data scenarios
-- **Clean Visualization**: Optimized chart options for different chart types
-
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -305,23 +241,70 @@ BookLibrary/
 
 ## Key Features in Detail
 
-### Statistics Dashboard
-- **Summary Cards**: Quick overview of key metrics (Total Books, Average Rating, Top Genre, Top Rating, Distinct Authors, Newest Book)
-- **Interactive Charts**: Toggle between bar and pie charts for different data visualizations
-- **Detailed Tables**: Comprehensive breakdown of genre distribution and rating statistics
-- **Real-time Updates**: All statistics update automatically when books are added, edited, or deleted
 
-### Book Management
-- **Comprehensive Validation**: Real-time form validation with clear error messages
-- **Flexible Views**: Switch between table and card views for different preferences
-- **Advanced Filtering**: Filter by multiple criteria with exact matching
-- **Sorting**: Sort by any column in table view
-- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+## Recent Updates & Improvements
 
-### User Experience
-- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
-- **Error Handling**: Comprehensive error messages and loading states
-- **Performance**: Optimized rendering and efficient API calls
+### Enhancements 
+
+#### **Enhanced Statistics Dashboard**
+- **Comprehensive Stats Cards**: 6 summary cards showing Total Books, Average Rating, Top Genre, Top Rating, Distinct Authors, and Newest Book
+- **Interactive Charts**: Toggle between Bar and Pie charts for both Genre and Rating statistics
+- **Data Tables**: Detailed tables showing genre distribution and rating breakdown with percentages
+- **Clean Pie Charts**: Removed grid lines and background for cleaner pie chart visualization
+- **Rating Integration**: Star ratings displayed inline with rating labels throughout the application
+- **Responsive Layout**: Stats cards and tables adapt to different screen sizes
+
+#### **Enhanced Form Validation & User Experience**
+- **Comprehensive Validation Rules**: 
+  - Title: Minimum 2 characters, maximum 100 characters
+  - Author: No numbers allowed, maximum 50 characters
+  - Published Date: Cannot be in the future, proper date format validation
+  - Genre: Required field validation
+  - Rating: Must be between 1-5 stars
+- **Real-time Validation**: Immediate feedback on field blur and form submission
+- **Clear Error Messages**: User-friendly validation messages with proper data-testid attributes
+- **Improved Filtering**: Genre filter uses exact matching instead of partial matching
+- **Better Error Handling**: Comprehensive error messages and loading states
+- **Responsive Layout**: Optimized for all screen sizes
+
+#### **Comprehensive Testing Suite**
+- **Backend Tests**: 13 xUnit tests covering all API endpoints and edge cases
+- **Frontend Tests**: 46 Vitest tests with React Testing Library covering all components
+- **Test Coverage**: 
+  - BookForm: 8 tests (form rendering, validation, submission, editing)
+  - BookList: 14 tests (filtering, sorting, pagination, CRUD operations)
+  - StatsView: 13 tests (chart rendering, data visualization, empty states)
+  - StarRating: 11 tests (interactive rating, visual feedback, accessibility)
+- **Stable Test Selectors**: All tests use data-testid attributes for reliable element selection
+- **Mock API**: Proper API mocking for isolated frontend testing
+
+#### **Architecture Improvements**
+- **Service Layer**: Centralized business logic in BookService for validation, filtering, and data transformation
+- **Custom Hooks**: Reusable hooks for data fetching (useBooks), filtering (useBookFilters), and statistics (useBookStats)
+- **API Layer**: Centralized API communication with axios interceptors for logging and error handling
+- **Type Safety**: Comprehensive TypeScript interfaces and strict type checking
+- **Separation of Concerns**: Clear separation between presentation, business logic, and API layers
+
+#### **Development Experience**
+- **Concurrent App Runner**: Scripts to run both frontend and backend simultaneously
+- **Automatic Setup**: Scripts handle database migrations and dependency installation
+- **Cross-Platform Support**: PowerShell (Windows) and Bash (Linux/macOS) scripts
+- **API Documentation**: Live Swagger UI for API exploration and testing
+- **React 19 Compatibility**: Updated to latest React version with proper testing library support
+
+#### **Technical Improvements**
+- **TypeScript Strict Mode**: Enhanced type safety throughout the application
+- **Performance Optimizations**: Efficient re-renders and optimized API calls
+- **Code Quality**: ESLint configuration and consistent code formatting
+- **Error Boundaries**: Proper error handling and user feedback
+- **Accessibility**: ARIA labels and keyboard navigation support
+
+#### **Data Visualization**
+- **Interactive Charts**: Bar and pie charts for genre distribution and ratings
+- **Statistics Dashboard**: Comprehensive view with summary cards, tables, and charts
+- **Real-time Updates**: Charts update automatically when data changes
+- **Empty States**: Proper handling of empty data scenarios
+- **Clean Visualization**: Optimized chart options for different chart types
 
 ## Contributing
 
